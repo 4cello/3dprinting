@@ -1,3 +1,6 @@
+// Credit goes to /u/debug_yourself, who posted the main functionality to reddit on 15.01.2020
+// I merely added the option to put the generated QR code on a customizable backplate.
+
 function main(params){
 
 	const correctLevel = parseInt(params.correct,10) || 1;
