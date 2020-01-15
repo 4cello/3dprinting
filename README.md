@@ -21,4 +21,5 @@ The PrusaSlicer settings folder can be found at
 ### Cura
 The cura settings folder is located at:
 - Linux: ``~/.config/cura/$CURA_VERSION``
+    - However, the definitions need to be placed in ``~/.local/share/cura/$CURA_VERSION``
 - Windows: ``%appdata%/cura/$CURA_VERSION``
