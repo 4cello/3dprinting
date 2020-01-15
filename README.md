@@ -11,3 +11,14 @@ Features:
 - Optional, customizable backplate
     - border around code with rounded corners
     - height ratio of backplate to the actual code
+
+## Slicer Profiles
+### PrusaSlicer
+The PrusaSlicer settings folder can be found at
+- Linux: ``~/.PrusaSlicer`` or ``~/.PrusaSlicer-alpha``
+- Windows: ``%appdata%/PrusaSlicer``
+
+### Cura
+The cura settings folder is located at:
+- Linux: ``~/.config/cura/$CURA_VERSION``
+- Windows: ``%appdata%/cura/$CURA_VERSION``
