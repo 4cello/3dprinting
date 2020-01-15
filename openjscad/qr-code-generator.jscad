@@ -23,7 +23,7 @@ function main(params){
 		row.forEach((bit,colIdx)=>{
 			if (bit === true) {
 				const pix = cube({size: [1,1,heightCode]});			
-				pixels.push(translate([-colIdx,-rowIdx,heightBackplate], pix));
+				pixels.push(color("Black", translate([-colIdx,-rowIdx,heightBackplate], pix)));
 			}
 		});
 	});
@@ -37,7 +37,7 @@ function main(params){
 	        roundradius: cornerRadius
 	    });
 	    const backplate = linear_extrude({height: heightBackplate}, backplateShape);
-	    pixels.push(translate([o, o, 0], backplate));
+	    pixels.push(color("White", translate([o, o, 0], backplate)));
 	}
 
 	const model = union.apply(this,pixels)
