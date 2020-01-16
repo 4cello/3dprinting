@@ -13,14 +13,14 @@ function main(params) {
         params.innerDepth, params.wallStrength,
         params.cornerRadius
     ));
-    /*const lid = translate([0,0,1*(params.innerHeight+params.wallStrength)], color("Blue", generateLid(
+    const lid = translate([0,0,1*(params.innerHeight+params.wallStrength)], color("Blue", generateLid(
         params.innerWidth + 2*params.wallStrength,
         params.innerDepth + 2*params.wallStrength,
         params.wallStrength,
         params.cornerRadius
-    )));*/
+    )));
     
-    return box;
+    return lid;
 }
 
 function getParameterDefinitions () {
@@ -51,18 +51,29 @@ function generateBox(w,h,d,wall,r) {
     return union(box, hookL, hookR);
 }
 
-function generateLid(w,d,wall,r,wHook,dHook) {
+function generateLid(w,d,wall,r) {
     const top = translate([0,0,-r], difference(
         cube({ size: [w,d,wall+2*r], round: true, radius: r}),
         cube([w,d,1*r]),
         translate([0,0,wall+r], cube([w,d,1*r]))
     ));
     
-    const inner = translate([wall,wall,-dHook],
-        cube([w-2*wall,d-2*wall,dHook])
-    )
+    const hook = union(
+        rotate([0,0,90], generateHook()),
+        translate([-hookWidth/2,-0.5,0], cube([hookWidth,0.5,0]))
+    );
     
-    return union(top, inner);
+    return hook;
+    const hookL = translate([w/2+wall,d+wall,0], mirror([0,1,0], hook));
+    const hookR = translate([w/2+wall,wall,0], hook);
+    
+    const inner = translate([wall+clearance,wall+clearance,-hookDepth],
+        difference(
+            cube([w-2*wall-2*clearance,d-2*wall-2*clearance,hookDepth]),
+            hookL, hookR
+    ));
+    
+    return union(hook)//union(top, inner);
 }
 
 function generateHook() {
