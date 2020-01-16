@@ -40,10 +40,15 @@ function getParameterDefinitions () {
 function generateBox(w,h,d,wall,r) {
     const room = translate([wall,wall,wall],cube([w,d,h]));
     const walls = translate([0,0,-r], cube({ size: [w+2*wall,d+2*wall,h+2*wall+2*r], round: true, radius: r}));
-    const cutoffTop = translate([0,0,h+r], cube([w+2*wall,d+2*wall,2*r]));
+    const cutoffTop = translate([0,0,h+wall], cube([w+2*wall,d+2*wall,2*r]));
     const cutoffBot = translate([0,0,-r], cube([w+2*wall,d+2*wall,r]));
+    
+    const box = difference(walls, room, cutoffTop, cutoffBot);
+    const hook = rotate([0,0,90], generateHook());
+    const hookL = translate([w/2+wall,d+wall,h+wall], mirror([0,1,0], hook));
+    const hookR = translate([w/2+wall,wall,h+wall], hook);
 
-    return difference(walls, room, cutoffTop, cutoffBot);
+    return union(box, hookL, hookR);
 }
 
 function generateLid(w,d,wall,r,wHook,dHook) {
@@ -67,7 +72,7 @@ function generateHook() {
     
     const profile = polygon([[0,0],[0,d],[d/2,d/2]]);
     
-    const half = translate([0,w/2-l,0], union(
+    const half = translate([0,w/2-l,-d], union(
         rotate([90,0,0], linear_extrude({height: hookWidth/2-l}, profile)),
         rotate([90,0,90], polyhedron({
             points: [[0,0,0],[0,d/2,d/2],[0,d,0],[l,0,0],[l,d,0]],
