@@ -1,29 +1,39 @@
 const clearance = 0.5;
 
+var hookWidth = 0;
+var hookDepth = 0;
+
 function main(params) {
     
+    hookWidth = params.hookWidth;
+    hookDepth = params.hookDepth;
+
     const box = color("Red", 0.5, generateBox(
         params.innerWidth, params.innerHeight,
         params.innerDepth, params.wallStrength,
         params.cornerRadius
     ));
-    const lid = translate([0,0,1*(params.innerHeight+params.wallStrength)], color("Blue", generateLid(
+    /*const lid = translate([0,0,1*(params.innerHeight+params.wallStrength)], color("Blue", generateLid(
         params.innerWidth + 2*params.wallStrength,
         params.innerDepth + 2*params.wallStrength,
         params.wallStrength,
-        params.cornerRadius,
-        20,4
-    )));
-    return generateHook(20,4);
+        params.cornerRadius
+    )));*/
+    
+    return box;
 }
 
 function getParameterDefinitions () {
   return [
+    { name: "dims", caption: "Dimensions", type: "group" },
     { name: 'innerWidth', caption: 'Inner Width:', type: 'float', initial: 50 },
     { name: 'innerDepth', caption: 'Inner Depth:', type: 'float', initial: 30 },
     { name: 'innerHeight', caption: 'Inner Height:', type: 'float', initial: 30 },
     { name: 'wallStrength', caption: 'Wall Strength:', type: 'float', initial: 1.5 },
-    { name: 'cornerRadius', caption: 'Corner Radius:', type: 'float', initial: 2 }
+    { name: 'cornerRadius', caption: 'Corner Radius:', type: 'float', initial: 2 },
+    { name: "hooks", caption: "Hooks", type: "group" },
+    { name: 'hookWidth', caption: 'Hook Width:', type: 'float', initial: 20 },
+    { name: 'hookDepth', caption: 'Hook Depth:', type: 'float', initial: 4 },
   ];
 }
 
@@ -50,6 +60,20 @@ function generateLid(w,d,wall,r,wHook,dHook) {
     return union(top, inner);
 }
 
-function generateHook(w,d) {
+function generateHook() {
+    const d = hookDepth;
+    const w = hookWidth;
+    const l = d/tan(45);
     
+    const profile = polygon([[0,0],[0,d],[d/2,d/2]]);
+    
+    const half = translate([0,w/2-l,0], union(
+        rotate([90,0,0], linear_extrude({height: hookWidth/2-l}, profile)),
+        rotate([90,0,90], polyhedron({
+            points: [[0,0,0],[0,d/2,d/2],[0,d,0],[l,0,0],[l,d,0]],
+            triangles: [[0,2,1],[0,1,3],[0,3,4],[1,2,4],[1,4,3],[0,4,2]]
+        })))
+    );
+    
+    return union(half, mirror([0,1,0], half));
 }
