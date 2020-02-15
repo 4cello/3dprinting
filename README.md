@@ -13,6 +13,12 @@ Features:
     - border around code with rounded corners
     - height ratio of backplate to the actual code
 
+### Cable Comb
+Generates a cable comb for an arbitrary amount of cables with arbitrary diameters (hopefully).
+
+[Link](https://openjscad.org/#https://raw.githubusercontent.com/4cello/3dprinting/master/openjscad/cable-comb.jscad) 
+([Source Code](openjscad/cable-comb.jscad))
+
 ### Snap Box Generator
 Generates a box + fitting snap-on lid.
 
