@@ -19,6 +19,14 @@ Generates a cable comb for an arbitrary amount of cables with arbitrary diameter
 [Link](https://openjscad.org/#https://raw.githubusercontent.com/4cello/3dprinting/master/openjscad/cable-comb.jscad) 
 ([Source Code](openjscad/cable-comb.jscad))
 
+
+### Hose Reducer
+Generates a part to connect two hoses of variable diameters.
+Based on https://www.thingiverse.com/thing:2483092
+
+[Link](https://openjscad.org/#https://raw.githubusercontent.com/4cello/3dprinting/master/openjscad/hose_reducer.jscad) 
+([Source Code](openjscad/cable-hose_reducer.jscad))
+
 ### Snap Box Generator
 Generates a box + fitting snap-on lid.
 
