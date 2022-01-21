@@ -49,7 +49,7 @@ function main(params){
 
 function getParameterDefinitions() {
     if (window && window.document){
-        window.document.getElementById('editFrame').style.width = "50%";
+        //window.document.getElementById('editFrame').style.width = "50%";
     }
     return [
         { name: 'qrc', type: 'group', caption: 'QR Code' },
